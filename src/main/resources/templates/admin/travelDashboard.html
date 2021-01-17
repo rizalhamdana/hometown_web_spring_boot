@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>List Posts</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+ 	<!-- CSS Files -->
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/material-dashboard.css}">
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/material-icons.css}">
+ 	<script type="text/javascript" th:src="@{/js/custom-style.js}"></script>
+</head>
+<!-- <body onload='setActiveLink("<%=activeLink %>")'> -->
+<body>
+	<div class="wrapper">
+	<th:block th:include="admin/sidebar.html">
+    </th:block>
+		<div class="main-panel">
+			<th:block th:include="admin/navbar.html">
+		    </th:block>
+			<div class="content">
+        		<div class="container-fluid">
+          			<div class="row">
+            			<div class="col-md-12">
+              				<div class="card">
+                				<div class="card-header card-header-primary">
+                  					<h4 class="card-title ">Travels</h4>
+                  					<p class="card-category"> Here is some list of travel posts</p>
+                				</div>
+                				<div class="card-body">
+                 					 <div class="table-responsive">
+                    					<table class="table">
+                      						<thead class=" text-primary">
+                      							<tr>
+                      								<th width="50%" colspan="2">Title</th>
+                        							<th width="25%">Category</th>
+                        							<th width="25%" colspan="2"  style="text-align:center;">Action</th>
+                      							</tr>  
+                      						</thead>
+                      						<tbody>
+                      						<div th:each="travel : ${allTravels }">
+                      							<tr>
+                         							<td colspan="2"><a th:href="@{/travels/details(travel_id=${travel.travelId})}" th:text="${travel.title }"></a></td>
+                         				
+                         							<td th:text="${travel.category.name }"></td>
+                         							<td>
+                         							<br>
+                         								<a th:href="@{/admin/edit-travel-form(travel_id=${travel.travelId})}" class="btn btn-primary btn-link btn-sm">
+                         									<i class="material-icons">
+																edit
+															</i>
+                         								</a>
+                         							</td>
+                         							<td>
+                         							<br>
+                         								<a th:href="@{/admin/travels/delete(travel_id=${travel.travelId})}" class="btn btn-danger btn-link btn-sm">
+                         									<i class="material-icons">
+																delete
+															</i>
+														 </a>
+                         							</td>
+                        						</tr>
+                      						</div>
+                      						
+                      						</tbody>
+                    					</table>
+                    					<a href="/admin/add-travel-form" class="btn btn-primary btn-link btn-lg">
+                    						<i class="material-icons">
+												add_box
+											</i> <strong>Travel</Strong>
+                    					</a>
+                  					</div>
+                				</div>
+              				</div>
+            			</div>
+            		</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</body>
+</html>

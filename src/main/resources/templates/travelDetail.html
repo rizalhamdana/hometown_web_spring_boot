@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>
+		<div th:if="${travel!=null }">${travel.title}</div>
+	</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/travel.css}">
+	<link rel="stylesheet" type= "text/css" th:href="@{/css/profil.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+.comment-wrapper{
+	margin-top: 20px;
+	padding: 10px 10px 10px 10px;
+	background-color: #f5f5f5;
+}
+
+.img-responsive{
+	max-height: 50%;
+}
+</style>
+<body style="overflow-x: hidden;" >
+	<div class="row">
+	<th:block th:include="navbar.html">
+    </th:block>
+		<div id="welcome-message" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 text-left" style="text-align: justify;">
+						<!-- <div class="container-fluid" th:if="${travel != null }"> -->
+							<h1 class="text-left" style="margin-bottom: 20px;" th:text="${travel.title }">	
+							</h1>
+							<h4 class="text-left" style="margin-bottom: 20px;" th:text="${travel.category.name }">	
+							</h4>
+							<br>
+							<div th:if="${travel!=null }">
+								<img th:src="@{/uploads/} + ${travel.thumbnail }" class="img-responsive slide-img" style="margin: 0 auto;">
+							</div>
+							<br>
+							<div id="content_post">
+								<div th:if="${travel!=null }">
+									<div th:utext="${travel.contents }"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 text-left" style="text-align: justify;">
+							<div class="container-fluid">
+									<h4>Comments</h4>
+									<hr>
+									<label>
+										<h4 th:if="${session.authUser != null}">
+											<b th:text="${session.authUser.username }"></b>
+										</h4>
+									</label>
+									<div th:if="${session.authUser != null }">
+										<form method="post" action="#" th:action=@{/addComment/} th:object="${newComment}"> 
+											<div class="form-group">
+												<textarea rows="4" class="form-control" name="comment" placeholder="Comment" th:field="*{comment}"></textarea>
+											</div>
+											<div class="form-group">
+												<input type="submit" name="submit" value="Submit" class="btn btn-primary">
+											</div>
+											<input type="hidden" name="travelId" th:value="${travel.travelId }" >
+											<input type="hidden" name="userId" th:value="${session.authUser.userId }">
+
+										</form>
+									</div>
+								<div th:if="${travel != null and comments != null}">
+									<div th:each="comment : ${comments }">
+										<div class="comment-wrapper">
+											<h4><b th:text="${comment.user.username }"></b></h4>
+											<p th:text="${comment.comment }"></p>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<th:block th:include="footer.html"></th:block>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/slides.js"></script>
+	</div>
+</body>
+</html>

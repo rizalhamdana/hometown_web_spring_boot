@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title th:text="${news.title}"></title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/travel.css}">
+	<link rel="stylesheet" type= "text/css" th:href="@{/css/profil.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+.comment-wrapper{
+	margin-top: 20px;
+	padding: 10px 10px 10px 10px;
+	background-color: #f5f5f5;
+}
+
+.img-responsive{
+	max-height: 50%;
+}
+</style>
+<body style="overflow-x: hidden;" >
+	<div class="row">
+	<th:block th:include="navbar.html">
+    </th:block>
+		<div id="welcome-message" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 text-left" style="text-align: justify;">
+						<div class="container-fluid" th:if="${news!=null }" >
+							<h1 class="text-left" style="margin-bottom: 20px;" th:text="${news.title}"></h1>
+							<br>
+							<div th:if="${news != null }" >
+								<img th:src="@{/uploads/} + ${news.thumbnail }" class="img-responsive slide-img" style="margin: 0 auto;">
+							</div>
+							<br>
+							<br>
+							<br>
+							<div id="content_post" th:if="${news!=null }">
+								<div th:utext="${news.contents }"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-md-offset-1" style="border:1px solid #c2c2c2; padding-top: -10px; margin-top: 30px; padding-bottom: 30px;">
+						<div style="background-color: #FC9DA0; margin: 0 -15px; margin-bottom: 5px; padding-top: 10px;">
+							<h4 class="text-center" style="color: #f5f5f5">Recent News</h4>
+							<hr>
+						</div>
+						<div class="container-fluid">
+							<div th:if="${recentNews != null }">
+							<div th:each="r_news : ${recentNews }">
+							<div class="media">
+		  							<div class="media-left media-middle">
+		    							<a th:href="@{/news/details(news_id=${r_news.newsId})}">
+		      								<img class="media-object" th:src="@{/uploads/} + ${r_news.thumbnail }" alt="" style="height: 48px;">
+		   								</a>
+		  							</div>
+		  							<div class="media-body">
+		    							<a th:href="@{/news/details(news_id=${r_news.newsId})}"> 
+											<h4>
+												<p th:text="${r_news.title}"></p>
+											</h4>
+										</a>
+										<div th:if="${r_news.contents.length() >= 50}">
+											<p th:utext="${r_news.contents.substring(0,50) }">...</p>
+										</div>
+										<div th:unless="${r_news.contents.length() >= 50}">
+				                            <p th:utext="${r_news.contents.substring(0,r_news.contents.length()) }">...</p>
+				                        </div>
+		  							</div>
+								</div>
+								<br>
+							</div>
+							</div>
+						</div>
+					</div>	
+				</div>
+				</div>
+			</div>
+		<th:block th:include="footer.html"></th:block>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="@{/js/bootstrap.js}"></script>
+		<script type="text/javascript" src="@{/js/slides.js}"></script>
+	</div>
+</body>
+</html>

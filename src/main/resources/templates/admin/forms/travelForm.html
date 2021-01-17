@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>
+		Add Travel
+	</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+ 	<!-- CSS Files -->
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/material-dashboard.css}">
+ 	<link rel="stylesheet" type="text/css" th:href="@{/css/material-icons.css}">
+ 	<script type="text/javascript" src="/js/plugins/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+<style>
+	.img-responsive{
+		max-width: 70%;
+	}
+</style>
+<div class="wrapper">
+	<th:block th:include="admin/sidebar.html">
+    </th:block>
+		<div class="main-panel">
+			<th:block th:include="admin/navbar.html">
+		    </th:block>
+		<div class="content">
+			<div class="content">
+       			<div class="container-fluid">
+       				<div class="row">
+       					 <div class="col-md-12">
+             				<div class="card">
+                				<div class="card-header card-header-primary">
+                  					<h4 class="card-title">Add Travel Destination</h4>
+                  					<p class="card-category"></p>
+                				</div>
+               					<div class="card-body">
+                					<form method="post" action="#" th:action="@{/admin/travel/}" th:object="${travel}" enctype="multipart/form-data">
+                    					<div class="row">
+                      						<div class="col-md-12">
+                        						<div class="form-group">
+                          							<label class="bmd-label-floating" >Title</label>
+                         							<input type="text" name="title" th:field="*{title}" class="form-control" value="${travel.title}" required/>
+                        						</div>
+                      						</div>
+                    					</div>
+                    					 <div class="row" style="margin-bottom: 50px;">
+                      						<div class="col-md-2">
+                        						<div class="form-group">
+                          							<label class="bmd-label-floating">
+                          								Image Thumbnail
+                          							</label>	
+                        						</div>
+                      						</div>
+                      						<div class="col-md-4">
+                        						<input type="file" name="file" accept="image/*" required />
+                      						</div>	
+                    					</div> 
+                    					 <!-- <div th:if="${editTravel != null }">
+                    						<div class="row" style="margin-bottom: 50px;">
+                    							<div th:each="thumbnail : ${thumbnails }">
+                    								<div class="col-md-2">
+                        								<div class="form-group">
+                          									<img src="uploads/${thumbnail }" alt="" class="img-responsive">	
+                        								</div>
+                      								</div>
+                    							</div>
+                      						</div>
+                      					</div>  -->
+                    					<div class="row">
+                      						<div class="col-md-4">
+                        						<div class="form-group">
+                          							<label class="bmd-label-floating" name="title">Category</label>
+                         							<select name="categoryId" class="form-control">
+                         								<div th:each="cat : ${allCategories}" >
+                         									<option th:text="${cat.name}" th:value="${cat.categoryId}"> 	
+                         									</option>
+                         								</c:forEach>
+                         							</select>
+                        						</div>
+                      						</div>
+                    					</div>
+                    					<div class="row">
+                      						<div class="col-md-12">
+                        						<div class="form-group">
+                          							<label>Contents</label>
+                          							<div class="form-group">
+                            							<textarea class="form-control" rows="20" id="editor" name="contents" th:field="*{contents}">
+                            								<p th:if="${editTravel != null }">${editTravel.contents}</p>
+                            							</textarea>
+                          							</div>
+                        						</div>
+                      						</div>
+                    					</div>
+                    					<div th:if="${editTravel != null }">
+                    						<input type="hidden" name="travel_id" th:value="${editTravel.travelId}">
+                    						<input type="hidden" name="likes" th:value="${editTravel.likes}">
+                    						<input type="hidden" name="dislikes" th:value="${editTravel.dislikes}">
+                    						<input type="hidden" name="thumbnailHidden" th:value="${editTravel.thumbnail}">
+                    					</div>
+                    					
+                    					<button type="submit" class="btn btn-primary pull-right">Post</button> &nbsp
+                    					<a href="/admin/allPosts" class="btn btn-danger">Cancel</a>
+                    					<div class="clearfix"></div>
+                  					</form>
+               					</div>
+               				</div>
+               			</div>
+               		</div>
+               	</div>
+              </div>				
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+   CKEDITOR.replace( 'editor' );
+</script>
+</body>
+</html>
